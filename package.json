@@ -1,0 +1,64 @@
+{
+  "name": "capri-clean",
+  "version": "1.0.0",
+  "description": "Capri Clean: descubra pra onde foi o espaço do seu PC e limpe com segurança.",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "demo": "electron . --demo",
+    "scan:test": "node src/main/cli-test.js",
+    "dist": "electron-builder --win nsis",
+    "release": "electron-builder --win nsis --publish always"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "44.9.3",
+    "electron-builder": "^26.18.0"
+  },
+  "dependencies": {
+    "@fontsource/chakra-petch": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "electron-updater": "^6.8.11"
+  },
+  "author": "gabriel448",
+  "build": {
+    "appId": "io.github.gabriel448.capriclean",
+    "productName": "Capri Clean",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/renderer/assets/capri.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "CapriClean-Setup-${version}.${ext}",
+      "shortcutName": "Capri Clean",
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "gabriel448",
+        "repo": "capri-clean",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "homepage": "https://github.com/gabriel448/capri-clean",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel448/capri-clean.git"
+  }
+}

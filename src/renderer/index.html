@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'">
+  <title>Capri Clean</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="titlebar">
+    <span class="brand"><b>CAPRI</b><i>//</i>CLEAN</span>
+    <span class="titlebar__meta" id="tbMeta">ARMAZENAMENTO</span>
+    <span class="upd" id="upd"></span>
+  </div>
+
+  <header class="top">
+    <div class="face" id="face"><img src="assets/face-calm.png" alt=""></div>
+    <div class="top__text">
+      <div class="meta"><span class="who">CAPRI</span><span class="sep">/</span><span id="metaLine">pronta pra varrer</span></div>
+      <h1 id="headline">Bora ver pra onde foi teu espaço.</h1>
+    </div>
+    <div class="top__actions">
+      <div class="drives" id="drivePicker"></div>
+      <button class="cartbtn" id="cartBtn" title="Carrinho de exclusão">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 4h2.5l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.5-1.1L21 8H6.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="9.5" cy="19.5" r="1.6" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.6" fill="currentColor"/></svg>
+        <span class="cartbtn__count" id="cartCount">0</span>
+        <span class="cartbtn__size" id="cartSize">vazio</span>
+      </button>
+      <button class="btn btn--go" id="scanBtn"><span>Varrer</span></button>
+    </div>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <aside class="drawer" id="drawer">
+    <div class="drawer__scrim" data-close-cart></div>
+    <div class="drawer__panel">
+      <div class="drawer__head">
+        <div>
+          <div class="meta"><span class="who">CARRINHO</span><span class="sep">/</span><span>apagar de vez</span></div>
+          <h2><span id="cartTotal">0 B</span> <small id="cartItems">0 itens</small></h2>
+        </div>
+        <button class="drawer__close" data-close-cart title="Fechar">×</button>
+      </div>
+      <div class="drawer__list" id="cartList"></div>
+      <div class="drawer__foot">
+        <p class="drawer__warn" id="cartWarn">Isso <b>não vai pra Lixeira</b>. Depois de apagar, não tem volta.</p>
+        <div class="drawer__actions">
+          <button class="btn btn--ghost btn--sm" id="cartClear">Esvaziar carrinho</button>
+          <button class="btn btn--danger hold" id="cartGo"><span class="hold__fill"></span><span class="hold__label">Segure pra apagar tudo</span></button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toasts" id="toasts"></div>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal__scrim" data-close></div>
+    <div class="panel modal__panel">
+      <div class="panel__plate">
+        <div class="meta"><span class="who">CAPRI</span><span class="sep">/</span><span id="modalKind">CONFIRMAR</span></div>
+        <h2 id="modalTitle"></h2>
+        <div class="modal__body" id="modalBody"></div>
+        <div class="modal__actions">
+          <button class="btn btn--ghost" data-close>Cancelar</button>
+          <button class="btn btn--danger" id="modalOk">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
