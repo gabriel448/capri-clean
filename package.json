@@ -1,6 +1,6 @@
 {
   "name": "capri-clean",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Capri Clean: descubra pra onde foi o espaço do seu PC e limpe com segurança.",
   "main": "src/main/main.js",
   "private": true,

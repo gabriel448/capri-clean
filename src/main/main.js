@@ -52,7 +52,18 @@ function setupUpdater() {
   if (!app.isPackaged || DEMO) return;
   let autoUpdater;
   try { ({ autoUpdater } = require('electron-updater')); } catch { return; }
-  const send = (s) => win && !win.isDestroyed() && win.webContents.send('update', s);
+  // %APPDATA%\Capri Clean\updater.log: what the updater did on each launch (kept small)
+  const logFile = path.join(app.getPath('userData'), 'updater.log');
+  const log = (msg) => {
+    try {
+      if (fs.existsSync(logFile) && fs.statSync(logFile).size > 256 * 1024) fs.renameSync(logFile, `${logFile}.old`);
+      fs.appendFileSync(logFile, `${new Date().toISOString()} v${app.getVersion()} ${msg}\n`);
+    } catch { /* logging must never break the app */ }
+  };
+  const send = (s) => {
+    if (s.state !== 'downloading') log(`${s.state}${s.version ? ` ${s.version}` : ''}${s.message ? ` ${s.message}` : ''}`);
+    if (win && !win.isDestroyed()) win.webContents.send('update', s);
+  };
   autoUpdater.autoDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
   autoUpdater.on('checking-for-update', () => send({ state: 'checking' }));
@@ -61,7 +72,7 @@ function setupUpdater() {
   autoUpdater.on('download-progress', (p) => send({ state: 'downloading', percent: p.percent }));
   autoUpdater.on('update-downloaded', (i) => send({ state: 'ready', version: i.version }));
   autoUpdater.on('error', (e) => send({ state: 'error', message: String((e && e.message) || e).split('\n')[0] }));
-  ipcMain.handle('update:install', () => { setImmediate(() => autoUpdater.quitAndInstall(true, true)); return true; });
+  ipcMain.handle('update:install', () => { log('installing + restart'); setImmediate(() => autoUpdater.quitAndInstall(true, true)); return true; });
   autoUpdater.checkForUpdates().catch(() => {});
 }
 ipcMain.handle('app:version', () => app.getVersion());
