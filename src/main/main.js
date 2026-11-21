@@ -52,7 +52,7 @@ function setupUpdater() {
   if (!app.isPackaged || DEMO) return;
   let autoUpdater;
   try { ({ autoUpdater } = require('electron-updater')); } catch { return; }
-  // %APPDATA%\Capri Clean\updater.log: what the updater did on each launch (kept small)
+  // %APPDATA%\capri-clean\updater.log: what the updater did on each launch (kept small)
   const logFile = path.join(app.getPath('userData'), 'updater.log');
   const log = (msg) => {
     try {
