@@ -48,3 +48,5 @@ jobs:
           test -f dist/latest.yml
           gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Capri Clean $TAG" --generate-notes
           gh release upload "$TAG" dist/*.exe dist/*.blockmap dist/latest.yml --clobber
+          # a draft is invisible to the auto-updater: always publish and mark as latest
+          gh release edit "$TAG" --draft=false --latest
